@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangGraph Tutorial: Build Production AI Agents in 2026</title>
+    <meta name="description" content="Complete LangGraph tutorial for building production AI agents. Learn state machines, tool calling, and human-in-the-loop patterns with practical examples.">
+    <meta name="keywords" content="LangGraph tutorial, AI agents, LangChain, Claude, GPT-4, state machines, production AI">
+    <link rel="canonical" href="https://rajathbharadwaj.github.io/langgraph-playground/blog/langgraph-tutorial.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="LangGraph Tutorial: Build Production AI Agents">
+    <meta property="og:description" content="Learn to build production-ready AI agents with LangGraph. Complete tutorial with code examples.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://rajathbharadwaj.github.io/langgraph-playground/blog/langgraph-tutorial.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LangGraph Tutorial: Build Production AI Agents">
+    <meta name="twitter:description" content="Complete guide to building AI agents with LangGraph in 2026">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "LangGraph Tutorial: Build Production AI Agents in 2026",
+        "description": "Complete LangGraph tutorial for building production AI agents with state machines, tool calling, and human-in-the-loop patterns.",
+        "author": {
+            "@type": "Person",
+            "name": "Rajath Bharadwaj"
+        },
+        "datePublished": "2026-02-24",
+        "publisher": {
+            "@type": "Organization",
+            "name": "AI Agent Builder"
+        }
+    }
+    </script>
+    
+    <style>
+        :root {
+            --bg: #0a0a1a;
+            --text: #e0e0e0;
+            --accent: #00d4aa;
+            --code-bg: #1a1a2e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; color: #fff; }
+        h2 { font-size: 1.8rem; margin: 40px 0 20px; color: var(--accent); }
+        h3 { font-size: 1.4rem; margin: 30px 0 15px; color: #fff; }
+        p { margin-bottom: 20px; }
+        a { color: var(--accent); }
+        code {
+            background: var(--code-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        pre {
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        pre code { background: none; padding: 0; }
+        .cta-box {
+            background: linear-gradient(135deg, #00d4aa 0%, #00a88a 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            color: #0a0a1a;
+        }
+        .cta-box h3 { color: #0a0a1a; margin-top: 0; }
+        .cta-box a {
+            display: inline-block;
+            background: #0a0a1a;
+            color: var(--accent);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+        .nav a { text-decoration: none; }
+        .logo { font-size: 20px; font-weight: bold; color: #fff; }
+        .logo span { color: var(--accent); }
+        ul { margin: 20px 0 20px 30px; }
+        li { margin-bottom: 10px; }
+        .toc {
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .toc h4 { margin-bottom: 15px; color: var(--accent); }
+        .toc ul { margin: 0 0 0 20px; }
+        .toc li { margin-bottom: 8px; }
+        .toc a { text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="../" class="logo">Lang<span>Graph</span> Builder</a>
+        <a href="https://rajathbharadwaj.github.io/ai-agent-playbook/">Get the Playbook →</a>
+    </nav>
+    
+    <article class="container">
+        <h1>LangGraph Tutorial: Build Production AI Agents in 2026</h1>
+        <p><em>A complete guide to building reliable AI agents with LangGraph, state machines, and production patterns.</em></p>
+        
+        <div class="toc">
+            <h4>📑 Table of Contents</h4>
+            <ul>
+                <li><a href="#what-is-langgraph">What is LangGraph?</a></li>
+                <li><a href="#why-langgraph">Why LangGraph Over Plain LangChain?</a></li>
+                <li><a href="#core-concepts">Core Concepts</a></li>
+                <li><a href="#first-agent">Building Your First Agent</a></li>
+                <li><a href="#tool-calling">Adding Tool Calling</a></li>
+                <li><a href="#human-in-loop">Human-in-the-Loop Patterns</a></li>
+                <li><a href="#production">Production Deployment</a></li>
+            </ul>
+        </div>
+        
+        <h2 id="what-is-langgraph">What is LangGraph?</h2>
+        <p>LangGraph is a library for building <strong>stateful, multi-actor applications</strong> with LLMs. Think of it as a state machine framework specifically designed for AI agents.</p>
+        
+        <p>Unlike basic LLM chains, LangGraph gives you:</p>
+        <ul>
+            <li><strong>Explicit state management</strong> - Know exactly what your agent "remembers"</li>
+            <li><strong>Conditional routing</strong> - Branch based on LLM output or external conditions</li>
+            <li><strong>Cycles and loops</strong> - Agents that can iterate and self-correct</li>
+            <li><strong>Human-in-the-loop</strong> - Pause execution for human approval</li>
+            <li><strong>Persistence</strong> - Save and resume agent state</li>
+        </ul>
+        
+        <h2 id="why-langgraph">Why LangGraph Over Plain LangChain?</h2>
+        <p>LangChain is great for simple chains: prompt → LLM → output. But agents need more:</p>
+        
+        <pre><code># Plain LangChain: Linear
+Input → LLM → Tool → LLM → Output
+
+# LangGraph: Stateful Graph
+       ┌──────────────────┐
+       │                  │
+Input → LLM → Decision → Tool
+       ↑         │         │
+       └─────────┴─────────┘</code></pre>
+        
+        <p>The key difference: <strong>LangGraph agents can loop, branch, and remember</strong>. This is essential for production agents that need to handle errors, retry operations, and maintain context across multiple turns.</p>
+        
+        <h2 id="core-concepts">Core Concepts</h2>
+        
+        <h3>1. State</h3>
+        <p>State is a TypedDict that holds everything your agent needs to remember:</p>
+        <pre><code>from typing import TypedDict, Annotated
+from langgraph.graph import add_messages
+
+class AgentState(TypedDict):
+    messages: Annotated[list, add_messages]
+    current_task: str
+    tools_called: list[str]
+    iteration_count: int</code></pre>
+        
+        <h3>2. Nodes</h3>
+        <p>Nodes are functions that transform state. Each node receives the current state and returns updates:</p>
+        <pre><code>def llm_node(state: AgentState) -> dict:
+    response = llm.invoke(state["messages"])
+    return {"messages": [response]}
+
+def tool_node(state: AgentState) -> dict:
+    # Execute tool based on last message
+    result = execute_tool(state["messages"][-1])
+    return {"messages": [result], "tools_called": [tool_name]}</code></pre>
+        
+        <h3>3. Edges</h3>
+        <p>Edges define how nodes connect. Conditional edges route based on state:</p>
+        <pre><code>def should_continue(state: AgentState) -> str:
+    last_message = state["messages"][-1]
+    if last_message.tool_calls:
+        return "tools"  # Go to tool node
+    return "end"  # Finish
+
+graph.add_conditional_edges(
+    "llm",
+    should_continue,
+    {"tools": "tool_node", "end": END}
+)</code></pre>
+        
+        <h2 id="first-agent">Building Your First Agent</h2>
+        <p>Let's build a simple ReAct agent that can answer questions and use tools:</p>
+        
+        <pre><code>from langgraph.graph import StateGraph, END
+from langchain_anthropic import ChatAnthropic
+
+# 1. Define state
+class AgentState(TypedDict):
+    messages: Annotated[list, add_messages]
+
+# 2. Create LLM with tools
+llm = ChatAnthropic(model="claude-sonnet-4-20250514")
+llm_with_tools = llm.bind_tools([search_tool, calculator_tool])
+
+# 3. Define nodes
+def call_model(state):
+    response = llm_with_tools.invoke(state["messages"])
+    return {"messages": [response]}
+
+def call_tools(state):
+    last_message = state["messages"][-1]
+    results = []
+    for tool_call in last_message.tool_calls:
+        result = execute_tool(tool_call)
+        results.append(ToolMessage(content=result, tool_call_id=tool_call["id"]))
+    return {"messages": results}
+
+# 4. Build graph
+graph = StateGraph(AgentState)
+graph.add_node("agent", call_model)
+graph.add_node("tools", call_tools)
+
+graph.set_entry_point("agent")
+graph.add_conditional_edges("agent", should_continue, {"tools": "tools", "end": END})
+graph.add_edge("tools", "agent")  # After tools, go back to agent
+
+# 5. Compile and run
+app = graph.compile()
+result = app.invoke({"messages": [HumanMessage(content="What's 25 * 4?")]})</code></pre>
+        
+        <div class="cta-box">
+            <h3>🎯 Try it Visually</h3>
+            <p>Want to see this graph structure? Use our free visual builder to design agent workflows before writing code.</p>
+            <a href="../">Open LangGraph Builder →</a>
+        </div>
+        
+        <h2 id="tool-calling">Adding Tool Calling</h2>
+        <p>Tools are what make agents useful. Here's how to define and use them:</p>
+        
+        <pre><code>from langchain_core.tools import tool
+
+@tool
+def search_web(query: str) -> str:
+    """Search the web for information."""
+    # Your search implementation
+    return search_results
+
+@tool  
+def run_python(code: str) -> str:
+    """Execute Python code and return the output."""
+    # Safe code execution
+    return exec_result
+
+# Bind tools to your LLM
+llm_with_tools = llm.bind_tools([search_web, run_python])</code></pre>
+        
+        <p><strong>Pro tip:</strong> Tool descriptions are critical. The LLM uses them to decide when to call each tool. Be specific about what each tool does and when to use it.</p>
+        
+        <h2 id="human-in-loop">Human-in-the-Loop Patterns</h2>
+        <p>Production agents often need human approval before taking actions. LangGraph makes this easy with checkpoints:</p>
+        
+        <pre><code>from langgraph.checkpoint.memory import MemorySaver
+
+# Add checkpointing
+memory = MemorySaver()
+app = graph.compile(checkpointer=memory, interrupt_before=["dangerous_action"])
+
+# Run until interrupt point
+config = {"configurable": {"thread_id": "user_123"}}
+result = app.invoke(inputs, config)
+
+# Later: Get human approval and continue
+# Human reviews the state...
+if human_approves:
+    result = app.invoke(None, config)  # Continue from checkpoint</code></pre>
+        
+        <h2 id="production">Production Deployment</h2>
+        <p>Deploying LangGraph agents to production requires:</p>
+        
+        <ul>
+            <li><strong>Persistent checkpoints</strong> - Use PostgreSQL or Redis instead of memory</li>
+            <li><strong>Error handling</strong> - Wrap nodes in try/except, implement retries</li>
+            <li><strong>Observability</strong> - Add logging at each node transition</li>
+            <li><strong>Rate limiting</strong> - Protect against runaway agents</li>
+            <li><strong>Timeouts</strong> - Set maximum execution time</li>
+        </ul>
+        
+        <pre><code># Production-ready graph
+from langgraph.checkpoint.postgres import PostgresSaver
+
+checkpointer = PostgresSaver.from_conn_string(DATABASE_URL)
+app = graph.compile(
+    checkpointer=checkpointer,
+    interrupt_before=["send_email", "execute_trade"],  # Human approval points
+)</code></pre>
+        
+        <div class="cta-box">
+            <h3>📘 Want the Complete Guide?</h3>
+            <p>This tutorial covers the basics. For production patterns, voice agent architecture, trading bot examples, and deployment guides, get the full playbook:</p>
+            <ul style="margin: 15px 0 15px 20px; color: #0a0a1a;">
+                <li>9000+ words of production patterns</li>
+                <li>Voice agent implementation with Twilio</li>
+                <li>Trading bot architecture</li>
+                <li>Docker deployment templates</li>
+            </ul>
+            <a href="https://buy.stripe.com/fZu7sKapverg4yN521gA802">Get the Playbook ($19) →</a>
+        </div>
+        
+        <h2>Next Steps</h2>
+        <ul>
+            <li><a href="../">Try the visual LangGraph builder</a></li>
+            <li><a href="https://rajathbharadwaj.github.io/langgraph-cheatsheet/">Get the LangGraph Cheatsheet</a></li>
+            <li><a href="https://github.com/Rajathbharadwaj/LangGraph-Computer-Use-Open-Source">See a full agent example (CUA)</a></li>
+        </ul>
+        
+        <p style="margin-top: 40px; color: #888;">
+            Written by <a href="https://github.com/Rajathbharadwaj">Rajath Bharadwaj</a> • Building production AI agents since 2024
+        </p>
+    </article>
+</body>
+</html>
